@@ -7,7 +7,7 @@
 - Unique Design
 - Multiple Hud Types
 - Mantine V7
-- QBOX / QBCORE / ESX SUPPORT
+- QBOX / QBCORE (Maybe some changes are needed) / ESX SUPPORT (SOON)
 
 
 ## Screenshots
