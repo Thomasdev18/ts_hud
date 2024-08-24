@@ -184,11 +184,6 @@ CreateThread(function()
         else
             if wasPauseMenuActive then
                 wasPauseMenuActive = false
-                if camHeight > 0 then
-                    camActive = true
-                    handleCinematicAnim()
-                    DisplayRadar(not camActive)
-                end
             end
             if camActive then
                 DisplayRadar(not camActive)
