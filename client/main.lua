@@ -280,6 +280,7 @@ if Config.stress.enableStress then
             Wait(10000)
         end
     end)
+end
 
     CreateThread(function()
         while true do
