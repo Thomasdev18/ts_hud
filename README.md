@@ -9,6 +9,10 @@
 - Mantine V7
 - QBOX / QBCORE (Maybe some changes are needed) / ESX SUPPORT (SOON)
 
+## FAQ
+  1. How would i make this support for other resolutions?
+       Force UI res in fivem settings to 1920 x 1080
+
 
 ## Screenshots
 
