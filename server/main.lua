@@ -13,7 +13,7 @@ RegisterNetEvent('hud:server:GainStress', function(amount)
     if not Config.stress.enableStress then return end
 
     local src = source
-    local player = exports.qbx_core:GetPlayer(src)
+    local player = Config.core.Functions.GetPlayer(src)
     local newStress
     if not player then return end
     if not resetStress then
@@ -40,7 +40,7 @@ RegisterNetEvent('hud:server:RelieveStress', function(amount)
     if not Config.stress.enableStress then return end
 
     local src = source
-    local player = exports.qbx_core:GetPlayer(src)
+    local player = Config.core.Functions.GetPlayer(src)
     local newStress
     if not player then return end
     if not resetStress then
