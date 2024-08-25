@@ -31,7 +31,7 @@ qbx.entityStateHandler('nitro', function(veh, netId, value)
     if plate ~= cachePlate then return end
     nos = value
 end)
-
+```
 
 ## Screenshots
 
