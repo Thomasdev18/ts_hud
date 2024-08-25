@@ -1,3 +1,5 @@
+-- TS TEST
+
 return {
     core = exports['qb-core']:GetCoreObject(),
     speedType = 'KMH', -- KMH or MPH
