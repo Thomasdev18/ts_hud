@@ -10,8 +10,27 @@
 - QBOX / QBCORE (Maybe some changes are needed) / ESX SUPPORT (SOON)
 
 ## FAQ
-  1. How would i make this support for other resolutions?
-       Force UI res in fivem settings to 1920 x 1080
+
+### 1. How do I make this support other resolutions?
+To ensure the UI displays correctly across different screen resolutions, force the UI resolution in FiveM settings to 1920x1080.
+
+### 2. I use Qbox's Nitro system. How do I integrate it?
+To integrate with Qbox's Nitro system, use the following code snippet:
+
+```lua
+qbx.entityStateHandler('nitroFlames', function(veh, netId, value)
+    local plate = qbx.string.trim(GetVehicleNumberPlateText(veh))
+    local cachePlate = qbx.string.trim(GetVehicleNumberPlateText(cache.vehicle))
+    if plate ~= cachePlate then return end
+    nitroActive = value
+end)
+
+qbx.entityStateHandler('nitro', function(veh, netId, value)
+    local plate = qbx.string.trim(GetVehicleNumberPlateText(veh))
+    local cachePlate = qbx.string.trim(GetVehicleNumberPlateText(cache.vehicle))
+    if plate ~= cachePlate then return end
+    nos = value
+end)
 
 
 ## Screenshots
@@ -29,7 +48,7 @@
 You have two options for installation:
 
   1. **Use the Pre-Built Version:**  
-   The pre-built version is ready to use and requires no additional setup—just plug and   play!
+   The pre-built version is ready to use and requires no additional setup—just plug and play!
 
   2. **Build from Source:**  
    If you prefer to build from the source code, follow these steps:
