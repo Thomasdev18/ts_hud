@@ -209,6 +209,9 @@ RegisterNUICallback('toggleCinematicBars', function(data, cb)
         TriggerEvent('ts_hud:client:showHud')
     end
 
+    -- Close HUD settings
+    hideSettingsMenu()
+
     -- Notify the NUI that the operation was successful
     cb({ status = 'success', message = 'Cinematic bars ' .. (data.enabled and 'disabled') })
 end)

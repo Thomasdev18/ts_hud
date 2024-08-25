@@ -50,8 +50,8 @@ const Player: React.FC = () => {
         setPosition(data.hudPosition);
     });
 
-    useNuiEvent('HUDSettings', (data) => {
-        setOpened(true);
+    useNuiEvent('HUDSettings', (data: boolean) => {
+        setOpened(data);
     });
 
     useNuiEvent<any>('player', (data) => {
