@@ -1,6 +1,5 @@
 
 # TS SCRIPTS - HUD
-Test
 ## Features
 
 - Settings Menu
