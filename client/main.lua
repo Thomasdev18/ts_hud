@@ -100,6 +100,42 @@ local function getEffectInterval(stressLevel)
     return 60000
 end
 
+local function isWhitelistedWeaponStress(weapon)
+    if weapon then
+        for _, v in pairs(Config.stress.whitelistedWeapons) do
+            if weapon == v then
+                return true
+            end
+        end
+    end
+    return false
+end
+
+local function startWeaponStressThread(weapon)
+    if isWhitelistedWeaponStress(weapon) then return end
+    hasWeapon = true
+
+    CreateThread(function()
+        while hasWeapon do
+            if IsPedShooting(cache.ped) then
+                if math.random() <= Config.stress.chance then
+                    TriggerServerEvent('hud:server:GainStress', math.random(1, 5))
+                end
+            end
+            Wait(0)
+        end
+    end)
+end
+
+AddEventHandler('ox_inventory:currentWeapon', function(currentWeapon)
+    hasWeapon = false
+    Wait(0)
+
+    if not currentWeapon then return end
+
+    startWeaponStressThread(currentWeapon.hash)
+end)
+
 local function saveHUDSettings()
     SetResourceKvp('playerHUDColors', json.encode(currentColors))
     SetResourceKvp('hudType', hudType)
