@@ -422,6 +422,8 @@ CreateThread(function()
         else
             if showingPlayerHUD then
                 ShowNUI('setVisiblePlayer', false, false)
+                ShowNUI('setVisibleVehicle', false, false)
+                showingVehicleHUD = false
                 showingPlayerHUD = false
             end
             Wait(500)
