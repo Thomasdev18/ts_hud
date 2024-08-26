@@ -31,6 +31,7 @@ return {
             [4] = {min = 80, max = 90, timeout = math.random(20000, 30000)},
             [5] = {min = 90, max = 100, timeout = math.random(15000, 20000)},
         },
+        useQbxNitro = true, -- wether use or not the compability to qbx_nitro, [true / false]
     },
     hudSettings = {
         hudType = "rectangle",  -- Default HUD type

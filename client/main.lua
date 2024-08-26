@@ -14,6 +14,23 @@ local currentColors = {
     hunger = '#fcc419', thirst = '#22b8cf', stress = '#ff6b6b',
 }
 
+
+if Config.useQbxNitro == true then
+    qbx.entityStateHandler('nitroFlames', function(veh, netId, value)
+        local plate = qbx.string.trim(GetVehicleNumberPlateText(veh))
+        local cachePlate = qbx.string.trim(GetVehicleNumberPlateText(cache.vehicle))
+        if plate ~= cachePlate then return end
+        nitroActive = value
+    end)
+    
+    qbx.entityStateHandler('nitro', function(veh, netId, value)
+        local plate = qbx.string.trim(GetVehicleNumberPlateText(veh))
+        local cachePlate = qbx.string.trim(GetVehicleNumberPlateText(cache.vehicle))
+        if plate ~= cachePlate then return end
+        nos = value
+    end)
+end
+
 -- Utility Functions
 local function ShowNUI(action, shouldShow, focus)
     SetNuiFocus(focus, focus)
@@ -466,6 +483,8 @@ CreateThread(function()
         end
     end
 end)
+
+
 
 -- Keybind Registration
 lib.addKeybind({
