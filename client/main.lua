@@ -205,6 +205,22 @@ local function handleCinematicAnim()
     camMoving = false
 end
 
+if GetResourceState('qbx_nitro') == 'started' then
+    qbx.entityStateHandler('nitroFlames', function(veh, netId, value)
+        local plate = qbx.string.trim(GetVehicleNumberPlateText(veh))
+        local cachePlate = qbx.string.trim(GetVehicleNumberPlateText(cache.vehicle))
+        if plate ~= cachePlate then return end
+        nitroActive = value
+    end)
+    
+    qbx.entityStateHandler('nitro', function(veh, netId, value)
+        local plate = qbx.string.trim(GetVehicleNumberPlateText(veh))
+        local cachePlate = qbx.string.trim(GetVehicleNumberPlateText(cache.vehicle))
+        if plate ~= cachePlate then return end
+        nos = value
+    end)
+end
+
 CreateThread(function()
     local wasPauseMenuActive = IsPauseMenuActive()
     while true do
