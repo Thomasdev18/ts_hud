@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Group, Text, DEFAULT_THEME, Box } from '@mantine/core';
 import { useNuiEvent } from "../hooks/useNuiEvent";
 import { PiSeatbeltFill, PiEngineFill } from "react-icons/pi"; // Import the seatbelt and engine icons
@@ -10,8 +10,9 @@ const Vehicle: React.FC = () => {
   const { classes } = useStyles();
   const theme = DEFAULT_THEME;
   const [speed, setSpeed] = useState<number>(0);
+  const [displaySpeed, setDisplaySpeed] = useState<number>(0);
   const [gear, setGear] = useState<number>(0);
-  const [speedType, setSpeedType] = useState<string>('KMT');
+  const [speedType, setSpeedType] = useState<string>('MPH');
   const [seatbeltOn, setSeatbeltOn] = useState<boolean>(false);
   const [streetName1, setStreetName1] = useState<string>('OSLO');
   const [streetName2, setStreetName2] = useState<string>('FROGNER'); // Second street name
@@ -19,7 +20,7 @@ const Vehicle: React.FC = () => {
   const [fuel, setFuel] = useState<number>(40); // Fuel level
   const [engineHealth, setEngineHealth] = useState<number>(0); // Engine health
   const [nitrous, setNitrous] = useState<number>(50); // Nitrous level
-  const formattedSpeed = speed.toString().padStart(3, '0');
+  const formattedSpeed = displaySpeed.toFixed(0).padStart(3, '0');
   const [isInVehicle, setIsInVehicle] = useState<boolean>(true);
   const [isHarnessOn, setHarnessOn] = useState<boolean>(false);
 
@@ -36,7 +37,26 @@ const Vehicle: React.FC = () => {
     setNitrous(data.nitrous || 0);
     setIsInVehicle(data.isInVehicle);
     setHarnessOn(data.isHarnessOn);
-});
+  });
+
+  useEffect(() => {
+    let animationFrameId: number;
+    const updateSpeed = () => {
+      setDisplaySpeed((prev) => {
+        const diff = speed - prev;
+        const increment = diff * 0.1; // Adjust this factor for different smoothing effects
+        if (Math.abs(increment) < 0.1) {
+          return speed; // Stop animating when close enough
+        }
+        return prev + increment;
+      });
+      animationFrameId = requestAnimationFrame(updateSpeed);
+    };
+
+    updateSpeed();
+
+    return () => cancelAnimationFrame(animationFrameId);
+  }, [speed]);
 
   const renderHorizontalFuelIndicator = (value: number) => {
     return (
