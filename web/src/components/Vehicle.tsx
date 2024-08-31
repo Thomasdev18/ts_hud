@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Group, Text, DEFAULT_THEME, Box } from '@mantine/core';
 import { useNuiEvent } from "../hooks/useNuiEvent";
-import { PiSeatbeltFill, PiEngineFill } from "react-icons/pi";
-import { FaGasPump } from "react-icons/fa6";
+import { PiSeatbeltFill, PiEngineFill } from "react-icons/pi"; // Import the seatbelt and engine icons
+import { FaGasPump } from "react-icons/fa6"; // Import the fuel icon
 import useStyles from '../hooks/useStyles';
 import '../index.css';
 
@@ -15,11 +15,12 @@ const Vehicle: React.FC = () => {
   const [speedType, setSpeedType] = useState<string>('MPH');
   const [seatbeltOn, setSeatbeltOn] = useState<boolean>(false);
   const [streetName1, setStreetName1] = useState<string>('OSLO');
-  const [streetName2, setStreetName2] = useState<string>('FROGNER');
-  const [heading, setHeading] = useState<string>('N');
-  const [fuel, setFuel] = useState<number>(40);
-  const [engineHealth, setEngineHealth] = useState<number>(0);
-  const [nitrous, setNitrous] = useState<number>(50);
+  const [streetName2, setStreetName2] = useState<string>('FROGNER'); // Second street name
+  const [heading, setHeading] = useState<string>('N'); // Compass heading
+  const [fuel, setFuel] = useState<number>(40); // Fuel level
+  const [engineHealth, setEngineHealth] = useState<number>(0); // Engine health
+  const [nitrous, setNitrous] = useState<number>(50); // Nitrous level
+  const formattedSpeed = displaySpeed.toFixed(0).padStart(3, '0');
   const [isInVehicle, setIsInVehicle] = useState<boolean>(true);
   const [isHarnessOn, setHarnessOn] = useState<boolean>(false);
 
@@ -28,8 +29,8 @@ const Vehicle: React.FC = () => {
     setGear(data.gear);
     setSpeedType(data.speedType);
     setSeatbeltOn(data.seatbeltOn);
-    setStreetName1(data.streetName1 || 'UNKNOWN');
-    setStreetName2(data.streetName2 || 'UNKNOWN');
+    setStreetName1(data.streetName1 || 'UNKNOWN'); // Default to UNKNOWN if not provided
+    setStreetName2(data.streetName2 || 'UNKNOWN'); // Default to UNKNOWN if not provided
     setHeading(data.heading || 'N');
     setFuel(data.fuel || 100);
     setEngineHealth(data.engineHealth || 100);
@@ -43,12 +44,10 @@ const Vehicle: React.FC = () => {
     const updateSpeed = () => {
       setDisplaySpeed((prev) => {
         const diff = speed - prev;
-        const increment = diff * (speed === 0 ? 0.02 : 0.1); // Slow down when approaching 0
-
-        if (Math.abs(diff) < 0.1) {
-          return speed; // Stop animating when the difference is minimal
+        const increment = diff * 0.1; // Adjust this factor for different smoothing effects
+        if (Math.abs(increment) < 0.1) {
+          return speed; // Stop animating when close enough
         }
-
         return prev + increment;
       });
       animationFrameId = requestAnimationFrame(updateSpeed);
@@ -58,12 +57,6 @@ const Vehicle: React.FC = () => {
 
     return () => cancelAnimationFrame(animationFrameId);
   }, [speed]);
-
-  useEffect(() => {
-    if (speed === 0 && displaySpeed !== 0) {
-      setDisplaySpeed(0); // Ensure displaySpeed goes to 0 when speed is 0
-    }
-  }, [speed, displaySpeed]);
 
   const renderHorizontalFuelIndicator = (value: number) => {
     return (
@@ -183,7 +176,7 @@ const Vehicle: React.FC = () => {
         {/* Speed Display with SpeedType After */}
         <Group spacing={4} align="left">
           <Text color="white" size={80} fw={700} style={{ lineHeight: 1 }}>
-          {displaySpeed.toFixed(0).padStart(3, '0')}
+            {formattedSpeed}
           </Text>
           <Text color={theme.colors.gray[4]} fw={700} size={30} style={{ marginLeft: 4, marginTop: '1.5rem' }}>
             {speedType.toUpperCase()}
