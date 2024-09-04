@@ -457,7 +457,7 @@ CreateThread(function()
                     streetName1 = getCrossroads(cache.vehicle)[1],
                     streetName2 = getCrossroads(cache.vehicle)[2],
                     heading = getHeadingText(GetEntityHeading(cache.vehicle)),
-                    engine = math.ceil(GetVehicleEngineHealth(cache.vehicle) / 10),
+                    engineHealth = math.ceil(GetVehicleEngineHealth(cache.vehicle) / 10),
                     fuel = math.ceil(GetVehicleFuelLevel(cache.vehicle)),
                     nitrous = nos,
                     isInVehicle = true,
